@@ -53,6 +53,7 @@ $route['oferty/create'] = 'oferty/create';
 $route['oferty/aktualizuj'] = 'oferty/aktualizuj';
 $route['oferty/(:any)'] = 'oferty/view/$1';
 $route['oferty'] = 'oferty/index';
+$route['kategorie'] = 'kategorie/index';
 $route['default_controller'] = 'pages/view';
 $route['(:any)'] = 'pages/view/$1';
 

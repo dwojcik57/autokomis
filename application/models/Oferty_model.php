@@ -20,6 +20,7 @@
 
 			$data = array(
 					'kategorie_id' => $this->input->post('kategorie_id'),
+					'user_id' => $this->session->userdata('user_id'),
 					'tytul' => $this->input->post('tytul'),
 					'slug' => $slug,
 					'opis' => $this->input->post('opis'),
@@ -52,5 +53,11 @@
 			$this->db->order_by('marka');
 			$query = $this->db->get('kategorie');
 			return $query->result_array();
+		}
+		public function oferty_dla_kategorii($kategorie_id) {
+				$this->db->order_by('oferty.id', 'DESC');
+				$this->db->join('kategorie', 'kategorie.id = oferty.kategorie_id');
+				$query = $this->db->get_where('oferty', array('kategorie_id' => $kategorie_id));
+				return $query->result_array();
 		}
 	}

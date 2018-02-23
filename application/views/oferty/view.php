@@ -5,8 +5,10 @@
 		<?php echo $oferta_sprzedazy['opis']; ?>
 </div>
 
-<hr>
-<a class="btn btn-default pull-left" href="<?php echo base_url(); ?>/index.php/oferty/zmien/<?php echo $oferta_sprzedazy['slug']; ?>">Zmień</a> 
-<?php echo form_open('/oferty/usun/'.$oferta_sprzedazy['id']); ?>
-	<input type="submit" value="usuń" class="btn btn-danger">
-</form>
+<?php if($oferta_sprzedazy['user_id'] == $this->session->userdata('user_id')) : ?>
+	<hr>
+	<a class="btn btn-default pull-left" href="<?php echo base_url(); ?>/index.php/oferty/zmien/<?php echo $oferta_sprzedazy['slug']; ?>">Zmień</a> 
+	<?php echo form_open('/oferty/usun/'.$oferta_sprzedazy['id']); ?>
+		<input type="submit" value="usuń" class="btn btn-danger">
+	</form>
+<?php endif; ?>

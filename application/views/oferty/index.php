@@ -9,7 +9,7 @@
 			<small class="data-dodania">Data dodania: <?php echo $oferta_sprzedazy['create_at']; ?> w kategorii: <strong><?php echo $oferta_sprzedazy['marka']; ?></strong></small><br>
 			<?php echo word_limiter($oferta_sprzedazy['opis'], 20); ?>
 			<br><br>
-			<pa><a class="btn btn-default" href="<?php echo site_url('/oferty/'.$oferta_sprzedazy['slug']); ?>">Więcej</a> </p>
+			<p><a class="btn btn-default" href="<?php echo site_url('/oferty/'.$oferta_sprzedazy['slug']); ?>">Więcej</a> </p>
 		</div>
 	</div>
 <?php endforeach; ?>

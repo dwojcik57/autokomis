@@ -29,6 +29,11 @@
 		}
 		public function create()
 		{
+			if(!$this->session->userdata('loged_in')) {
+				redirect('users/login');
+			}
+
+
 			$data['title'] = 'Dodaj ofertę';
 
 			$data['kategorie'] = $this->Oferty_model->get_categories();
@@ -47,8 +52,8 @@
 				$config['upload_path'] = './assets/images/oferty';
 				$config['allowed_types'] = 'gif|jpg|png';
 				$config['max_size'] = '2048';
-				$config['max_width'] = '500';
-				$config['max_height'] = '500';
+				$config['max_width'] = '2000';
+				$config['max_height'] = '2000';
 
 				$this->load->library('upload', $config);
 
@@ -64,17 +69,37 @@
 				}
 
 				$this->Oferty_model->dodaj_oferte($post_image);
+
+				$this->session->set_flashdata('oferta_zamieszona', 'Twoja oferta została zamieszczona');
+
 				redirect('oferty');
 			}	
 		}
 		public function usun($id)
 		{
+			if(!$this->session->userdata('loged_in')) {
+				redirect('users/login');
+			}
+
 			$this->Oferty_model->usun_oferte($id);
+
+			$this->session->set_flashdata('oferta_usunieta', 'Oferta została usunięta');
+
 			redirect('oferty');
 		}
 		public function zmien($slug)
 		{
+			if(!$this->session->userdata('loged_in')) {
+				redirect('users/login');
+			}
+
+
 			$data['oferta_sprzedazy'] = $this->Oferty_model->pobierz_oferty($slug);
+
+			// check user
+			if($data['oferta_sprzedazy']['user_id'] != $this->session->userdata('user_id')) {
+				redirect('oferty');
+			}
 
 			$data['kategorie'] = $this->Oferty_model->get_categories();
 
@@ -91,7 +116,15 @@
 		}
 		public function aktualizuj()
 		{
-				$this->Oferty_model->aktualizuj_oferte();
+			if(!$this->session->userdata('loged_in')) {
+				redirect('users/login');
+			}
+
+
+				$this->Oferty_model->aktualizuj_ofrte();
+
+				$this->session->set_flashdata('oferta_zaktualizowana', 'Twoja oferta została zaktualizowana');
+
 				redirect('oferty');
 		}
 	}
